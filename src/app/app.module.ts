@@ -9,11 +9,14 @@ import { ProductListComponent } from './product-list/product-list.component';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+import {SharedModule} from './shared/shared.module';
+
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    SharedModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
     ])

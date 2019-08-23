@@ -4,7 +4,6 @@
 
 * {
   font-family: 'Roboto', Arial, sans-serif;
-  color: #616161;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,6 +20,7 @@ body {
 
 router-outlet + *  {
   padding: 0 16px;
+  color: #616161;
 }
 
 /* Text */
