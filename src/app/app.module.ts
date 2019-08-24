@@ -10,6 +10,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {SharedModule} from './shared/shared.module';
+import { ProjectsService } from './projects.service';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {SharedModule} from './shared/shared.module';
     TopBarComponent,
     ProductListComponent
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  providers: [ProjectsService]
 })
 export class AppModule { }
 
