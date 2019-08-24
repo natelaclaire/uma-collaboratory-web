@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -11,11 +12,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {SharedModule} from './shared/shared.module';
 import { ProjectsService } from './projects.service';
+import { UserService } from './user.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
     RouterModule.forRoot([
@@ -28,7 +31,7 @@ import { ProjectsService } from './projects.service';
     ProductListComponent
   ],
   bootstrap: [ AppComponent ],
-  providers: [ProjectsService]
+  providers: [ProjectsService, UserService]
 })
 export class AppModule { }
 
