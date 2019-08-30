@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs'; 
+import { throwError,Observable } from 'rxjs'; 
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +15,18 @@ export class UserService {
     private http: HttpClient
   ) { }
 
-  logIn(username, password) {
-    this.http.post(this.serviceUrl + 'user/login', {
+  logIn(username, password): Observable<any> {
+    let post = this.http.post(this.serviceUrl + 'users/login.json', {
       username: username,
       password: password
-    }).subscribe(
+    });
+    
+    post.subscribe(
       (data: any) => this.user = { ...data }, // success path
       error => this.handleError(error) // error path
     );
+
+    return post;
   }
 
   logOut() {
