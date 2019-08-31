@@ -14,6 +14,8 @@ import {SharedModule} from './shared/shared.module';
 import { ProjectsService } from './projects.service';
 import { UserService } from './user.service';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   imports: [
@@ -23,14 +25,18 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     SharedModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
+      { path: '', component: WelcomeComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
     ])
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
     ProductListComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    WelcomeComponent
   ],
   bootstrap: [ AppComponent ],
   providers: [ProjectsService, UserService]

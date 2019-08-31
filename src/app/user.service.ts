@@ -29,6 +29,23 @@ export class UserService {
     return post;
   }
 
+  register(username, password, first_name, last_name, type): Observable<any> {
+    let post = this.http.post(this.serviceUrl + 'users/register.json', {
+      username: username,
+      password: password,
+      first_name: first_name,
+      last_name: last_name,
+      type: type
+    });
+    
+    post.subscribe(
+      (data: any) => this.user = { ...data }, // success path
+      error => this.handleError(error) // error path
+    );
+
+    return post;
+  }
+
   logOut() {
     this.http.post(this.serviceUrl + 'user/logout', {},
     {

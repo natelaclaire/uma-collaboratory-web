@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../user.service'; 
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   form:FormGroup;
 
@@ -18,28 +18,28 @@ export class LoginComponent implements OnInit {
 
       this.form = this.fb.group({
           email: ['',Validators.required],
-          password: ['',Validators.required]
+          password: ['',Validators.required],
+          first_name: ['',Validators.required],
+          last_name: ['',Validators.required],
+          type: ['',Validators.required]
       });
   }
 
   ngOnInit() {
   }
 
-  login() {
+  register() {
       const val = this.form.value;
 
       if (val.email && val.password) {
-          this.userService.logIn(val.email, val.password)
+          this.userService.register(val.email, val.password, val.first_name, val.last_name, val.type)
               .subscribe(
-                  (data: any) => {
+                  () => {
                       console.log("User is logged in");
-                      console.log(data);
                       this.router.navigateByUrl('/');
                   }
               );
       }
   }
-
-  
 
 }

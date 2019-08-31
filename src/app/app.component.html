@@ -1,9 +1,11 @@
 <!--<app-top-bar></app-top-bar>-->
 <mat-toolbar color="primary">
   <span>My Application</span>
-</mat-toolbar>
+  <!-- This fills the remaining space of the current row -->
+  <span class="collab-fill-remaining-space"></span>
 
-<app-login></app-login>
+  <span *ngIf="userService.user.user">{{userService.user.user.first_name}}</span>
+</mat-toolbar>
 
 <div class="container">
   <router-outlet></router-outlet>
