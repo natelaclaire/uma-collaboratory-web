@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError,Observable } from 'rxjs'; 
+import { throwError,Observable,Subject } from 'rxjs'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   serviceUrl = 'https://provost.uma.edu/collaboratory/api/';
-  user = {};
+  userData = new Subject<any>();
+  userData$ = this.userData.asObservable();
   error = {};
 
   constructor(
@@ -22,7 +23,7 @@ export class UserService {
     });
     
     post.subscribe(
-      (data: any) => this.user = { ...data }, // success path
+      (data: any) => this.userData.next(data.data), // success path
       error => this.handleError(error) // error path
     );
 
@@ -39,7 +40,7 @@ export class UserService {
     });
     
     post.subscribe(
-      (data: any) => this.user = { ...data }, // success path
+      (data: any) => this.userData.next(data.data), // success path
       error => this.handleError(error) // error path
     );
 
@@ -53,7 +54,7 @@ export class UserService {
         Authorization: 'Bearer ' + '<token>'
       }
     }).subscribe(
-      (data: any) => this.user = { }, // success path
+      (data: any) => this.userData.next({user:{username:''}}), // success path
       error => this.handleError(error) // error path
     );
   }

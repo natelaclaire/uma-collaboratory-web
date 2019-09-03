@@ -7,8 +7,20 @@ import { UserService } from './user.service';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
+  userData = {
+    user : {
+      username : ''
+    }
+  };
   constructor(private userService: UserService) {
 
+  }
+  ngOnInit() {
+    this.userService.userData$.subscribe(
+      data => {
+        this.userData = data; 
+        //console.log(data);
+      });
   }
 }
 

@@ -3,8 +3,8 @@
   <span>My Application</span>
   <!-- This fills the remaining space of the current row -->
   <span class="collab-fill-remaining-space"></span>
-
-  <span *ngIf="userService.user.user">{{userService.user.user.first_name}}</span>
+  <span *ngIf="userData.user.username">{{userData.user.username}}</span>
+  
 </mat-toolbar>
 
 <div class="container">
