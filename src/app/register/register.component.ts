@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
+  } 
 
   register() {
       const val = this.form.value;
@@ -34,9 +34,14 @@ export class RegisterComponent implements OnInit {
       if (val.email && val.password) {
           this.userService.register(val.email, val.password, val.first_name, val.last_name, val.type)
               .subscribe(
-                  () => {
+                  (data) => {
+                    if (data.success) {
                       console.log("User is logged in");
                       this.router.navigateByUrl('/');
+                    } else {
+                      alert('Perhaps you are already registered?');
+                    }
+                      
                   }
               );
       }

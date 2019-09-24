@@ -23,7 +23,11 @@ export class UserService {
     });
     
     post.subscribe(
-      (data: any) => this.userData.next(data.data), // success path
+      (data: any) => {
+        if (data.success) {
+          this.userData.next(data.data);
+        }
+      }, // success path
       error => this.handleError(error) // error path
     );
 
@@ -40,7 +44,11 @@ export class UserService {
     });
     
     post.subscribe(
-      (data: any) => this.userData.next(data.data), // success path
+      (data: any) => {
+        if (data.success) {
+          this.userData.next(data.data)
+        }
+      }, // success path
       error => this.handleError(error) // error path
     );
 

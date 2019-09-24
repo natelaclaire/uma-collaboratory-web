@@ -32,9 +32,13 @@ export class LoginComponent implements OnInit {
           this.userService.logIn(val.email, val.password)
               .subscribe(
                   (data: any) => {
+                    if (data.success) {
                       console.log("User is logged in");
                       console.log(data);
                       this.router.navigateByUrl('/');
+                    } else {
+                      alert('Incorrect username or password');
+                    }
                   }
               );
       }
