@@ -1,0 +1,7 @@
+.collab-full-width {
+  width: 100%;
+  display: block;
+}
+.collab-full-width label {
+  text-transform: none;
+}
