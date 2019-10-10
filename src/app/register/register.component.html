@@ -1,34 +1,27 @@
 <form [formGroup]="form">
     <fieldset>
-        <legend>Login</legend>
-        <div class="form-field">
-            <label>Email:</label>
-            <input name="email" formControlName="email">
-        </div>
-        <div class="form-field">
-            <label>Password:</label>
-            <input name="password" formControlName="password" 
-                   type="password">
-        </div>
-        <div class="form-field">
-            <label>First Name:</label>
-            <input name="first_name" formControlName="first_name" 
-                   type="text">
-        </div>
-        <div class="form-field">
-            <label>Last Name:</label>
-            <input name="last_name" formControlName="last_name" 
-                   type="text">
-        </div>
-        <div class="form-field">
-            <label>Type:</label>
-            <select name="type" formControlName="type">
-              <option value="student">Student</option>
-              <option value="faculty">Faculty</option>
-              <option value="staff">Staff</option>
-              <option value="community">Community Member</option>
-            </select>
-        </div>
+        <legend>Register</legend>
+        <mat-form-field class="collab-full-width">
+          <input matInput placeholder="Email" name="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="collab-full-width">
+          <input matInput type="password" placeholder="Password" name="password" formControlName="password">
+        </mat-form-field>
+        <mat-form-field class="collab-full-width">
+          <input matInput placeholder="First Name" name="first_name" formControlName="first_name">
+        </mat-form-field>
+        <mat-form-field class="collab-full-width">
+          <input matInput placeholder="Last Name" name="last_name" formControlName="last_name">
+        </mat-form-field>
+        <mat-form-field class="collab-full-width">
+          <mat-label>Type</mat-label>
+          <mat-select name="type" formControlName="type">
+            <mat-option value="student">Student</mat-option>
+            <mat-option value="faculty">Faculty</mat-option>
+            <mat-option value="staff">Staff</mat-option>
+            <mat-option value="community">Community Member</mat-option>
+          </mat-select>
+        </mat-form-field>
     </fieldset>
     <div class="form-buttons">
         <button class="button button-primary" 
