@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError,Observable,Subject } from 'rxjs'; 
+import { throwError, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +10,18 @@ export class UserService {
   serviceUrl = 'https://provost.uma.edu/collaboratory/api/';
   userData = new Subject<any>();
   userData$ = this.userData.asObservable();
+  reservationsData = new Subject<any>();
+  reservationsData$ = this.reservationsData.asObservable();
   error = {};
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
   logIn(username, password): Observable<any> {
     let post = this.http.post(this.serviceUrl + 'users/login.json', {
       username: username,
       password: password
     });
-    
+
     post.subscribe(
       (data: any) => {
         if (data.success) {
@@ -42,11 +42,11 @@ export class UserService {
       last_name: last_name,
       type: type
     });
-    
+
     post.subscribe(
       (data: any) => {
         if (data.success) {
-          this.userData.next(data.data)
+          this.userData.next(data.data);
         }
       }, // success path
       error => this.handleError(error) // error path
@@ -56,15 +56,33 @@ export class UserService {
   }
 
   logOut() {
-    this.http.post(this.serviceUrl + 'user/logout', {},
-    {
-      headers: {
-        Authorization: 'Bearer ' + '<token>'
-      }
-    }).subscribe(
-      (data: any) => this.userData.next({user:{username:''}}), // success path
-      error => this.handleError(error) // error path
-    );
+    this.http
+      .post(
+        this.serviceUrl + 'user/logout.json',
+        {},
+        {
+          headers: {
+            Authorization: 'Bearer ' + this.userData.token
+          }
+        }
+      )
+      .subscribe(
+        (data: any) => this.userData.next({ user: { username: '' } }), // success path
+        error => this.handleError(error) // error path
+      );
+  }
+
+  getReservations() {
+    this.http
+      .get(this.serviceUrl + 'reservations/index.json', {
+        headers: {
+          Authorization: 'Bearer ' + this.userData.token
+        }
+      })
+      .subscribe(
+        (data: any) => this.reservationsData.next(data.data), // success path
+        error => this.handleError(error) // error path
+      );
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -75,12 +93,10 @@ export class UserService {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  };
-
+    return throwError('Something bad happened; please try again later.');
+  }
 }

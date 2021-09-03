@@ -1,6 +1,9 @@
 <img src="https://libapps.s3.amazonaws.com/accounts/178337/images/collab-850.png" id="welcomeLogo">
-<p style="text-align:center;">
+<p *ngIf="!userData.user.username" style="text-align:center;">
   <a mat-raised-button color="primary" routerLink="/login">Login</a>
   &nbsp; &nbsp;
   <a mat-raised-button color="primary" routerLink="/register">Register</a>
+</p>
+<p *ngIf="userData.user.username" style="text-align:center;">
+  <button mat-raised-button color="primary" (click)="getReservations()">Reservations</button>
 </p>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-welcome',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+  userData = {
+    user: {
+      username: ''
+    }
+  };
 
-  constructor() { }
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
+    this.userService.userData$.subscribe(data => {
+      this.userData = data;
+      //console.log(data);
+    });
   }
 
+  getReservations() {
+    this.userService.getReservations();
+  }
 }
