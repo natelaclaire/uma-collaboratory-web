@@ -13,6 +13,7 @@ export class UserService {
   reservationsData = new Subject<any>();
   reservationsData$ = this.reservationsData.asObservable();
   error = {};
+  userToken = '';
 
   constructor(private http: HttpClient) {}
 
@@ -26,6 +27,7 @@ export class UserService {
       (data: any) => {
         if (data.success) {
           this.userData.next(data.data);
+          this.userToken = data.data.token;
         }
       }, // success path
       error => this.handleError(error) // error path
@@ -47,6 +49,7 @@ export class UserService {
       (data: any) => {
         if (data.success) {
           this.userData.next(data.data);
+          this.userToken = data.data.token;
         }
       }, // success path
       error => this.handleError(error) // error path
@@ -62,7 +65,7 @@ export class UserService {
         {},
         {
           headers: {
-            Authorization: 'Bearer ' + this.userData.token
+            Authorization: 'Bearer ' + this.userToken
           }
         }
       )
@@ -70,13 +73,14 @@ export class UserService {
         (data: any) => this.userData.next({ user: { username: '' } }), // success path
         error => this.handleError(error) // error path
       );
+    this.userToken = '';
   }
 
   getReservations() {
     this.http
       .get(this.serviceUrl + 'reservations/index.json', {
         headers: {
-          Authorization: 'Bearer ' + this.userData.token
+          Authorization: 'Bearer ' + this.userToken
         }
       })
       .subscribe(
